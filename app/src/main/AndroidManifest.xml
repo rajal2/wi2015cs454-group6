@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.pdx.gomoku.gomoku" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="edu.pdx.gomoku.ui.StartActivity"
+            android:label= "@string/app_name"
+            android:screenOrientation="sensorPortrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="edu.pdx.gomoku.ui.GameActivity"
+            android:label="@string/title_activity_game"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        <activity
+            android:name="edu.pdx.gomoku.ui.ResultActivity"
+            android:label="@string/title_activity_result"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        <activity
+            android:name="edu.pdx.gomoku.ui.StartNetworkGameActivity"
+            android:label="@string/title_activity_start_network_game"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+        <activity
+            android:name="edu.pdx.gomoku.ui.JoinNetworkGameActivity"
+            android:label="@string/title_activity_join_network_game"
+            android:screenOrientation="sensorPortrait" >
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Gomoku</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_game">Play Gomoku</string>
+    <string name="title_activity_result">Game Results</string>
+    <string name="title_activity_start_network_game">Start New Network Game</string>
+    <string name="title_activity_join_network_game">Join a Network Game</string>
+
+</resources>
