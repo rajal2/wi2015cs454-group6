@@ -11,7 +11,8 @@ import android.view.View;
 import edu.pdx.gomoku.core.Game;
 import edu.pdx.gomoku.core.GameBoard;
 import edu.pdx.gomoku.core.GameCellState;
-import edu.pdx.gomoku.core.IllegalMoveExcetion;
+import edu.pdx.gomoku.core.IllegalMoveException;
+import edu.pdx.gomoku.core.IllegalMoveException;
 import edu.pdx.gomoku.core.MoveNotAllowedException;
 import edu.pdx.gomoku.core.callbacks.IGameBoardChangedCallback;
 import edu.pdx.gomoku.core.callbacks.OnGameBoardChangeEventArgs;
@@ -273,8 +274,8 @@ public class GameBoardControl extends View implements IGameBoardChangedCallback 
 
 
             this.game.getCurrentPlayer().acceptMove(row, column);
-        } catch (IllegalMoveExcetion illegalMoveExcetion) {
-            illegalMoveExcetion.printStackTrace();
+        } catch (IllegalMoveException illegalMoveException) {
+            illegalMoveException.printStackTrace();
         } catch (MoveNotAllowedException e) {
             e.printStackTrace();
         }

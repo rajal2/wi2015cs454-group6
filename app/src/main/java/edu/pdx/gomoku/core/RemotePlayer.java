@@ -16,7 +16,7 @@ public class RemotePlayer extends Player {
     }
 
     @Override
-    public void acceptMove(int row, int column) throws IllegalMoveExcetion, MoveNotAllowedException {
+    public void acceptMove(int row, int column) throws IllegalMoveException, MoveNotAllowedException {
         //do nothing
     }
 }

@@ -30,8 +30,8 @@ public abstract class Player {
      * Processes player move (from the UI)
      * @param row
      * @param column
-     * @throws IllegalMoveExcetion
+     * @throws IllegalMoveException
      * @throws MoveNotAllowedException
      */
-    public  abstract  void acceptMove(int row, int column)  throws IllegalMoveExcetion, MoveNotAllowedException;
+    public  abstract  void acceptMove(int row, int column)  throws IllegalMoveException, MoveNotAllowedException;
 }

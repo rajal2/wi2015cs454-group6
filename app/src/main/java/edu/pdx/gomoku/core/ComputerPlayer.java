@@ -31,7 +31,7 @@ public class ComputerPlayer extends Player {
 
                 break;
             }
-            catch(IllegalMoveExcetion mex)
+            catch(IllegalMoveException mex)
             {
                 //do nothing here
             } catch (MoveNotAllowedException e) {

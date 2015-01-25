@@ -23,7 +23,7 @@ public class LocalPlayer extends Player {
     }
 
     @Override
-    public void acceptMove(int row, int column) throws IllegalMoveExcetion, MoveNotAllowedException {
+    public void acceptMove(int row, int column) throws IllegalMoveException, MoveNotAllowedException {
         if(game!=null)
         {
             game.acceptMove(this.getColor(), row, column);

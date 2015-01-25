@@ -82,7 +82,7 @@ public class Game implements IGameBoardChangedCallback {
         }
     }
 
-    void acceptMove(StoneColor color, int row, int column) throws IllegalMoveExcetion, MoveNotAllowedException {
+    void acceptMove(StoneColor color, int row, int column) throws IllegalMoveException, MoveNotAllowedException {
         //figure out if the move is legal (i.e. the game is expecting a move) and what the color is
         if (color != currentPlayer.getColor()) {
             throw new MoveNotAllowedException();
@@ -163,6 +163,12 @@ public class Game implements IGameBoardChangedCallback {
         }
 
         //TODO: Check if the board is not full
+        if(board.isFull()) {
+            state = GameState.Tie;
+            Log.d("onGameBoardChanged", "Tie detected!" );
+            raiseCallback();
+            return;
+        }
 
         //if we made it here, start the next move
         startNextMove();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.pdx.gomoku.core.callbacks.IGameBoardChangedCallback;
 import edu.pdx.gomoku.core.callbacks.OnGameBoardChangeEventArgs;
+import android.util.Log;
 
 /**
  * Created by yuriy on 1/20/15.
@@ -12,6 +13,9 @@ public class GameBoard {
 
     private final int rows, columns;
     private final GameCellState[][] cellStates;
+    private int totalCellNumber;
+    private int filledCellNumber = 0;
+
 
     private final ArrayList<IGameBoardChangedCallback> callbacks = new ArrayList<>();
 
@@ -21,14 +25,17 @@ public class GameBoard {
             case _10x10:
                 rows = 10;
                 columns = 10;
+                totalCellNumber = 10*10;
                 break;
             case _15x15:
                 rows = 15;
                 columns = 15;
+                totalCellNumber = 15*15;
                 break;
             case _20x20:
                 rows = 20;
                 columns = 20;
+                totalCellNumber = 20*20;
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -46,6 +53,7 @@ public class GameBoard {
                 cellStates[row][column] = GameCellState.Empty;
             }
         }
+        filledCellNumber = 0;
         raiseCallback(-1,-1);
     }
 
@@ -72,20 +80,24 @@ public class GameBoard {
         }
     }
 
-    void acceptMove(StoneColor color, int row, int column) throws IllegalMoveExcetion {
+    void acceptMove(StoneColor color, int row, int column) throws IllegalMoveException {
         //do stuff here to make sure the move is valid
 
         if (this.cellStates[row][column] != GameCellState.Empty) {
-            throw new IllegalMoveExcetion();
+            throw new IllegalMoveException();
         }
 
         switch (color) {
             case Black:
                 this.cellStates[row][column] = GameCellState.BlackStone;
+                filledCellNumber++;
+                Log.d("GameBoard", "filled cell number is " + filledCellNumber);
                 raiseCallback(row, column);
                 break;
             case White:
                 this.cellStates[row][column] = GameCellState.WhiteStone;
+                filledCellNumber++;
+                Log.d("GameBoard", "filled cell number is " + filledCellNumber);
                 raiseCallback(row, column);
                 break;
 
@@ -108,4 +120,6 @@ public class GameBoard {
     public int getColumnCount() {
         return columns;
     }
+
+    public boolean isFull() { return filledCellNumber == totalCellNumber; }
 }
