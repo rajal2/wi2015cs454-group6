@@ -3,6 +3,7 @@ package edu.pdx.gomoku.core;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import edu.pdx.gomoku.core.callbacks.IGameBoardChangedCallback;
 import edu.pdx.gomoku.core.callbacks.IGameStateChangedCallback;
@@ -16,6 +17,7 @@ public class Game implements IGameBoardChangedCallback {
     private final GameBoard board;
     private GameState state = GameState.Unknown;
     private GameMode mode;
+    private BoardSize boardSize;
 
     private Player currentPlayer, otherPlayer;
 
@@ -25,10 +27,9 @@ public class Game implements IGameBoardChangedCallback {
         //intialize the board and start listening to its events
         this.board = new GameBoard(boardSize);
         this.board.registerCallback(this);
-
+        this.boardSize = boardSize;
         this.mode = mode;
 
-        initializePlayers(mode);
         startGame();
     }
 
@@ -37,7 +38,7 @@ public class Game implements IGameBoardChangedCallback {
      */
     public void restart() {
         board.clear();
-        startGame();
+        new Game(this.boardSize, this.mode);
     }
 
     /**
@@ -45,20 +46,33 @@ public class Game implements IGameBoardChangedCallback {
      */
     private void startGame() {
         initializePlayers(this.mode);
-        currentPlayer.startMove(this);
+
+        StoneColor color = currentPlayer.getColor();
+        if (color == StoneColor.Black)
+            currentPlayer.startMove(this);
+        else
+            otherPlayer.startMove(this);
     }
 
     private void initializePlayers(GameMode mode) {
         //todo: randomize the players somehow
         switch (mode) {
             case PlayerVsPlayer:
-                currentPlayer = new LocalPlayer(StoneColor.White);
-                otherPlayer = new LocalPlayer(StoneColor.Black);
+                currentPlayer = new LocalPlayer(StoneColor.Black);
+                otherPlayer = new LocalPlayer(StoneColor.White);
+
                 break;
             case PlayerVsComputer:
+                int blackOrWhite = randomSelectPlayerColor();
+                if (blackOrWhite < 1) {
+                    currentPlayer = new LocalPlayer(StoneColor.Black);
+                    otherPlayer = new ComputerPlayer(StoneColor.White);
+                }
+                else {
+                    currentPlayer = new ComputerPlayer(StoneColor.Black);
+                    otherPlayer = new LocalPlayer(StoneColor.White);
+                }
 
-                currentPlayer = new LocalPlayer(StoneColor.White);
-                otherPlayer = new ComputerPlayer(StoneColor.Black);
                 break;
             case NetworkHost:
             case NetworkGuest:
@@ -73,7 +87,6 @@ public class Game implements IGameBoardChangedCallback {
         if (color != currentPlayer.getColor()) {
             throw new MoveNotAllowedException();
         }
-
 
         //forward to the board and bail out
         board.acceptMove(currentPlayer.getColor(), row, column);
@@ -95,6 +108,10 @@ public class Game implements IGameBoardChangedCallback {
         return currentPlayer;
     }
 
+    public int randomSelectPlayerColor() {
+        Random rNum = new Random();
+        return rNum.nextInt(2);
+    }
 
     public void setState(GameState state) {
         //TODO: Make sure the state is legal (if needed)
