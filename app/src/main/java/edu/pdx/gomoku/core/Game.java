@@ -24,7 +24,7 @@ public class Game implements IGameBoardChangedCallback {
     private final ArrayList<IGameStateChangedCallback> callbacks = new ArrayList<>();
 
     public Game(BoardSize boardSize, GameMode mode) {
-        //intialize the board and start listening to its events
+        //initialize the board and start listening to its events
         this.board = new GameBoard(boardSize);
         this.board.registerCallback(this);
         this.boardSize = boardSize;
@@ -127,7 +127,7 @@ public class Game implements IGameBoardChangedCallback {
         }
     }
 
-    public void removeCallaback(IGameStateChangedCallback target) {
+    public void removeCallback(IGameStateChangedCallback target) {
         if (callbacks.contains(target)) {
             callbacks.remove(target);
         }
